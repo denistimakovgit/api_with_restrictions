@@ -44,7 +44,12 @@ class AdvertisementSerializer(serializers.ModelSerializer):
 
         # TODO: добавьте требуемую валидацию
         user = self.context["request"].user
-        queryset = Advertisement.objects.filter(creator=user, status='OPEN')
-        if len(queryset) >= 10:
+        print(data)
+        if 'status' in data:
+            status = data['status']
+        else:
+            status = 'OPEN'
+        queryset = Advertisement.objects.filter(creator=user, status='OPEN').count()
+        if queryset >= 10 and status == 'OPEN':
             raise ValidationError('Too much advertisements')
         return data

@@ -12,7 +12,7 @@ class AdvertisementFilter(filters.FilterSet):
 
     class Meta:
         model = Advertisement
-        fields = ["created_at"]
+        fields = ["created_at", "status"]
 
     filter_overrides = {
         django_models.DateTimeField: {
